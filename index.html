@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>TREINO DO PANCADA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="halter.png">
+
+<style>
+:root{
+  --bg:#0e0e11;
+  --card:#16161d;
+  --accent:#7cffb2;
+  --text:#eaeaf0;
+  --muted:#9a9aa5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, Arial, sans-serif;
+  background:linear-gradient(180deg,#0b0b0f,#141420);
+  color:var(--text);
+}
+header{
+  padding:40px 20px 20px;
+  text-align:center;
+}
+header h1{margin:0;font-size:2.2rem}
+header p{color:var(--muted);margin-top:6px}
+
+.info{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+.info div{
+  background:#1b1b25;
+  padding:10px 16px;
+  border-radius:14px;
+  font-size:.9rem;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+.tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.tab{
+  padding:10px 16px;
+  border-radius:20px;
+  background:#1b1b25;
+  cursor:pointer;
+  transition:.3s;
+  font-weight:600;
+}
+.tab.active{
+  background:var(--accent);
+  color:#0b0b0f;
+}
+.card{
+  background:var(--card);
+  border-radius:16px;
+  padding:20px;
+  margin-top:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.exercise{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #242432;
+}
+.exercise:last-child{border-bottom:none}
+.exercise label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.exercise input{width:18px;height:18px}
+.badge{
+  background:#242432;
+  padding:4px 10px;
+  border-radius:12px;
+  font-size:.75rem;
+  color:var(--accent);
+}
+.hidden{display:none}
+.progress{
+  margin-top:15px;
+  height:8px;
+  background:#242432;
+  border-radius:6px;
+  overflow:hidden;
+}
+.progress span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:var(--accent);
+  transition:.4s;
+}
+button{
+  margin-top:15px;
+  background:var(--accent);
+  border:none;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+}
+footer{
+  text-align:center;
+  padding:25px;
+  color:var(--muted);
+  font-size:.85rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>TREINO DO PANCADA</h1>
+  <p>Definição • Massa Magra • Consistência</p>
+
+  <div class="info">
+    <div>Início: <strong>05/02/2026</strong></div>
+    <div>Dias no plano: <strong id="daysCount">0</strong></div>
+    <div>Último treino: <strong id="lastWorkout">Nenhum</strong></div>
+  </div>
+</header>
+
+<div class="container">
+
+<div class="tabs">
+  <div class="tab active" onclick="showDay('pull')">PULL</div>
+  <div class="tab" onclick="showDay('push')">PUSH</div>
+  <div class="tab" onclick="showDay('legs')">LEGS</div>
+  <div class="tab" onclick="showDay('shoulders')">SHOULDERS</div>
+  <div class="tab" onclick="showDay('arms')">ARMS</div>
+</div>
+
+<!-- TEMPLATE DE TREINO -->
+<div class="card day" id="pull">
+<h2>Costas + Bíceps</h2>
+
+<div class="exercise"><label><input type="checkbox">Puxada alta pronada</label><span class="badge">3x8–10 (Drop Set na Última)</span></div>
+<div class="exercise"><label><input type="checkbox">Remada curvada barra</label><span class="badge">3x6–8 (pesado)</span></div>
+<div class="exercise"><label><input type="checkbox">Remada baixa</label><span class="badge">2x10–12</span></div>
+<div class="exercise"><label><input type="checkbox">Face pull</label><span class="badge">2x12-15</span></div>
+<div class="exercise"><label><input type="checkbox">Rosca direta Barra</label><span class="badge">3x8-10 (rest pause na Última)</span></div>
+<div class="exercise"><label><input type="checkbox">Rosca martelo</label><span class="badge">2x10-12</span></div>
+<div class="exercise"><label><input type="checkbox">[ABDÔMEN] Prancha</label><span class="badge">3x45-60s</span></div>
+
+<div class="progress"><span></span></div>
+<button onclick="saveWorkout('PULL')">✔ Marcar treino feito</button>
+</div>
+
+<div class="card day hidden" id="push">
+<h2>Peito + Tríceps</h2>
+
+<div class="exercise"><label><input type="checkbox">Supino reto barra</label><span class="badge">4x6–8</span></div>
+<div class="exercise"><label><input type="checkbox">Supino inclinado halteres</label><span class="badge">3x8–10</span></div>
+<div class="exercise"><label><input type="checkbox">Crucifixo no cross</label><span class="badge">2x12-15 (Drop Set)</span></div>
+<div class="exercise"><label><input type="checkbox">Tríceps paralela</label><span class="badge">3x8-12</span></div>
+<div class="exercise"><label><input type="checkbox">Tríceps corda no Cross</label><span class="badge">2x12-15 (Rest Pause)</span></div>
+<div class="exercise"><label><input type="checkbox">[ABDÔMEN] Infra Banco</label><span class="badge">3x15-20</span></div>
+
+<div class="progress"><span></span></div>
+<button onclick="saveWorkout('PUSH')">✔ Marcar treino feito</button>
+</div>
+
+<div class="card day hidden" id="legs">
+<h2>Pernas</h2>
+
+<div class="exercise"><label><input type="checkbox">Agachamento (Livre/Hack)</label><span class="badge">4x6–8</span></div>
+<div class="exercise"><label><input type="checkbox">Leg press</label><span class="badge">3x10-12</span></div>
+<div class="exercise"><label><input type="checkbox">Mesa flexora</label><span class="badge">3x10-12</span></div>
+<div class="exercise"><label><input type="checkbox">Cadeira extensora</label><span class="badge">2x12-15 (Drop Set)</span></div>
+<div class="exercise"><label><input type="checkbox">Panturrilha em Pé</label><span class="badge">2x12-15</span></div>
+
+<div class="progress"><span></span></div>
+<button onclick="saveWorkout('LEGS')">✔ Marcar treino feito</button>
+</div>
+
+<div class="card day hidden" id="shoulders">
+<h2>Ombros</h2>
+
+<div class="exercise"><label><input type="checkbox">Desenvolvimento</label><span class="badge">4x8-10</span></div>
+<div class="exercise"><label><input type="checkbox">Elevação lateral</label><span class="badge">3x12-15 (Drop Set na Última)</span></div>
+<div class="exercise"><label><input type="checkbox">Elevação Lateral Unilateral no Cross</label><span class="badge">2x12</span></div>
+<div class="exercise"><label><input type="checkbox">Crucifixo Inverso Halteres</label><span class="badge">2x12-15</span></div>
+<div class="exercise"><label><input type="checkbox">Face Pull</label><span class="badge">2x15</span></div>
+<div class="exercise"><label><input type="checkbox">[ABDÔMEN] Abdominal no Cross</label><span class="badge">3x12-15</span></div>
+
+<div class="progress"><span></span></div>
+<button onclick="saveWorkout('SHOULDERS')">✔ Marcar treino feito</button>
+</div>
+
+<div class="card day hidden" id="arms">
+<h2>Braços</h2>
+
+<div class="exercise"><label><input type="checkbox">Rosca direta Barra W</label><span class="badge">3x8-10</span></div>
+<div class="exercise"><label><input type="checkbox">Rosca Spider</label><span class="badge">3x10-12</span></div>
+<div class="exercise"><label><input type="checkbox">Rosca Alternada Banco Inclinado</label><span class="badge">2x12</span></div>
+<div class="exercise"><label><input type="checkbox">Tríceps pulley Barra V</label><span class="badge">3x10-12 (Rest Pause)</span></div>
+<div class="exercise"><label><input type="checkbox">Tríceps Corda</label><span class="badge">2x12-15</span></div>
+
+<div class="progress"><span></span></div>
+<button onclick="saveWorkout('ARMS')">✔ Marcar treino feito</button>
+</div>
+
+</div>
+
+<footer>
+Disciplina diária constrói físico extraordinário.
+</footer>
+
+<script>
+// CONTADOR DE DIAS
+const startDate = new Date('2026-02-05');
+const today = new Date();
+const diffDays = Math.floor((today - startDate)/(1000*60*60*24));
+document.getElementById('daysCount').innerText = diffDays >= 0 ? diffDays : 0;
+
+// ÚLTIMO TREINO
+const last = localStorage.getItem('lastWorkout');
+if(last) document.getElementById('lastWorkout').innerText = last;
+
+// SALVAR TREINO
+function saveWorkout(name){
+  const now = new Date().toLocaleDateString('pt-BR');
+  const text = `${name} (${now})`;
+  localStorage.setItem('lastWorkout', text);
+  document.getElementById('lastWorkout').innerText = text;
+  alert('Treino registrado 💪');
+}
+
+// TABS
+function showDay(day){
+  document.querySelectorAll('.day').forEach(d=>d.classList.add('hidden'));
+  document.getElementById(day).classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// PROGRESSO
+document.querySelectorAll('.card').forEach(card=>{
+  const checks = card.querySelectorAll('input[type="checkbox"]');
+  const bar = card.querySelector('.progress span');
+  checks.forEach(c=>{
+    c.addEventListener('change',()=>{
+      const done = [...checks].filter(i=>i.checked).length;
+      bar.style.width = (done/checks.length)*100 + '%';
+    });
+  });
+});
+</script>
+
+</body>
+</html>
